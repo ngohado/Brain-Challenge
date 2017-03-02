@@ -196,15 +196,7 @@ class LoginViewController: UIViewController {
     }
     
     func handleNormalLoginSuccess() {
-        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let mainViewController   = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-        let drawerViewController = storyBoard.instantiateViewController(withIdentifier: "DrawerViewController") as! DrawerViewController
-        let drawerController     = KYDrawerController(drawerDirection: .left, drawerWidth: 300)
-        drawerController.mainViewController = UINavigationController(
-            rootViewController: mainViewController
-        )
-        drawerController.drawerViewController = drawerViewController
-        self.present(drawerController, animated: true, completion: nil)
+        MainViewController.navigate(viewController: self)
     }
     
     func handleFirstLoginSuccess() {

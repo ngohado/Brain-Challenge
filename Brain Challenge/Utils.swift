@@ -5,7 +5,7 @@
 //  Created by Hado on 2/2/17.
 //  Copyright © 2017 Hado. All rights reserved.
 //
-
+import UIKit
 import SystemConfiguration
 class Utils {
     class func isConnectedToNetwork() -> Bool {
@@ -32,3 +32,11 @@ class Utils {
         return (isReachable && !needsConnection)
     }
 }
+
+
+extension UIButton {
+    func setTitleChaneSize(title: String) {
+        setTitle(title, for: .normal)
+    }
+}
+

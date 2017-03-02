@@ -16,8 +16,6 @@ class MainViewController: UIViewController {
     
     var viewControllerMenuRight: [UIViewController] = []
     
-    let socket = SocketIOClient(socketURL: URL(string: "http://127.0.0.1:3000")!, config: [.log(true), .forcePolling(true), .nsp("/chat")])
-    
     
     static var mainStoryboard: UIStoryboard {
         return UIStoryboard(name: "Main", bundle: Bundle.main)
@@ -29,21 +27,6 @@ class MainViewController: UIViewController {
         drawerViewController?.drawerProtocol = self
         
         initViewControllerMenuRight()
-        
-        socket.on(OnEventConstant.getConnectionEvent()) {data, ack in
-            print("Connected")
-            self.socket.emit(EmitEventConstant.getInitDataEvent(), with: [(UserRealm.getUserInfo()?.toJSONString())!])
-        }
-        
-        socket.on(OnEventConstant.getFriendsOnlineEvent()) {data, ack in
-            print("Hado receive: \(data[0])")
-        }
-        
-//        socket.on(OnEventConstant.getOnlineOnEvent()) {data, ack in
-//            print("Someone online: \(data[0])")
-//        }
-        
-        socket.connect()
     }
     
     func initViewControllerMenuRight() {
@@ -67,12 +50,20 @@ class MainViewController: UIViewController {
 
 extension MainViewController: DrawerProtocol {
     func selectedItem(index: Int) {
+        var currentTab: UIViewController?
+        if index == -1 {
+            let profileVC = MainViewController.mainStoryboard.instantiateViewController(withIdentifier: ProfileViewController.getIdentifier()) as! ProfileViewController
+            profileVC.idShow = (UserRealm.getUserInfo()?._id)!
+            currentTab = profileVC
+            
+        } else {
+            currentTab = viewControllerMenuRight[index]
+        }
         
-        let currentTab = viewControllerMenuRight[index]
-        addChildViewController(currentTab)
-        currentTab.view.frame = container.bounds
-        container.addSubview(currentTab.view)
-        currentTab.didMove(toParentViewController: self)
+        addChildViewController(currentTab!)
+        currentTab!.view.frame = container.bounds
+        container.addSubview(currentTab!.view)
+        currentTab!.didMove(toParentViewController: self)
         
     }
     

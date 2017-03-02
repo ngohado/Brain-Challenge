@@ -92,5 +92,31 @@ class AlertHelper {
         
         viewController.present(alert, animated: true, completion: nil)
     }
+    
+    class func showAlertAnswerSheet(viewController: UIViewController, cbAccept: @escaping (_ alert: UIAlertController) -> Void, cbReject: @escaping (_ alert: UIAlertController) -> Void) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        alert.addAction(UIAlertAction(title: "Accept request", style: .default, handler: { (UIAlertAction) in
+            cbAccept(alert)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Reject request", style: .default, handler: { (UIAlertAction) in
+            cbReject(alert)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        viewController.present(alert, animated: true, completion: nil)
+    }
+
+    class func showAlertFriendSheet(viewController: UIViewController, cbCancelFriend: @escaping (_ alert: UIAlertController) -> Void) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        alert.addAction(UIAlertAction(title: "Cancel friend", style: .default, handler: { (UIAlertAction) in
+            cbCancelFriend(alert)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        viewController.present(alert, animated: true, completion: nil)
+    }
 
 }

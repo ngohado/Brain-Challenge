@@ -11,28 +11,50 @@ class ApiConstant {
     static let BASE_API = "\(BASE_URL):8080"
     
     class func getApiLogin() -> String {
-        return BASE_URL + "/login"
+        return BASE_API + "/login"
     }
     
     class func getApiLoginSN() -> String {
-        return BASE_URL + "/loginsn"
+        return BASE_API + "/loginsn"
     }
     
     class func getApiRegist() -> String {
-        return BASE_URL + "/regist"
+        return BASE_API + "/regist"
     }
     
     class func getApiGuide() -> String {
-        return BASE_URL + "/guide"
+        return BASE_API + "/guide"
     }
     
     class func getApiEvent() -> String {
-        return BASE_URL + "/event"
+        return BASE_API + "/event"
     }
     
     class func getApiBonus() -> String {
-        return BASE_URL + "/bonus"
+        return BASE_API + "/bonus"
     }
+    
+    class func getApiUserInfo() -> String {
+        return BASE_API + "/user"
+    }
+    
+    class func getApiAddFriend() -> String {
+        return BASE_API + "/requestfriend"
+    }
+    
+    class func getApiCancelRequestFriend() -> String {
+        return BASE_API + "/cancelrequestfriend"
+    }
+    
+    class func getApiAcceptRequestFriend() -> String {
+        return BASE_API + "/acceptrequestfriend"
+    }
+    
+    class func getApiCancelFriend() -> String {
+        return BASE_API + "/cancelfriend"
+    }
+    
+    
 }
 
 class OnEventConstant {

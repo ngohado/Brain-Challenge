@@ -21,7 +21,7 @@ class User: Mappable {
     var gender: Int?
     var type: Int?
     var firstLogin: Int?
-    
+    var items: [Item]?
     var token: String?
     
     required init?(map: Map) {
@@ -60,6 +60,7 @@ class User: Mappable {
         self.token <- map["token"]
         self.gender <- map["gender"]
         self.type <- map["type"]
+        self.items <- map["item"]
         self.firstLogin <- map["firstLogin"]
     }
     
@@ -121,6 +122,15 @@ class UserRealm: Object {
         return nil
     }
 
+}
+
+class UserInfo: User {
+    var typeFriend: Int?
+    
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        typeFriend <- map["type_friend"]
+    }
 }
 
 class TwitterUser: Mappable {

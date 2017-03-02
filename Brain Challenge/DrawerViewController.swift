@@ -39,8 +39,17 @@ class DrawerViewController: UIViewController {
         ivAvatar.layer.borderWidth = 2
         ivAvatar.layer.borderColor = UIColor.white.cgColor
         ivAvatar.clipsToBounds = true
+        ivAvatar.isUserInteractionEnabled = true
+        ivAvatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:))))
         
         bindUser(user: UserRealm.getUserInfo())
+    }
+    
+    func imageTapped(tapGestureRecognizer: UITapGestureRecognizer) {
+        if let drawController = parent as? KYDrawerController {
+            drawController.setDrawerState(.closed, animated: true)
+        }
+        self.drawerProtocol?.selectedItem(index: -1)
     }
     
     func bindUser(user: User?) {
