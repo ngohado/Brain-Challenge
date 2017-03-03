@@ -54,6 +54,9 @@ class ApiConstant {
         return BASE_API + "/cancelfriend"
     }
     
+    class func getApiFriend() -> String {
+        return BASE_API + "/friends"
+    }
     
 }
 

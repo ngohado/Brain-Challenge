@@ -26,6 +26,12 @@
 		0C6C3A2C1E4326F300AFECEA /* LoginRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C3A2B1E4326F300AFECEA /* LoginRequest.swift */; };
 		0C6C3A2F1E4337EA00AFECEA /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C3A2E1E4337EA00AFECEA /* Constant.swift */; };
 		0C6C3A311E43436300AFECEA /* AlertHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6C3A301E43436300AFECEA /* AlertHelper.swift */; };
+		0C8206C41E690269000A35A3 /* FriendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8206C31E690269000A35A3 /* FriendsViewController.swift */; };
+		0C8206C61E6902F0000A35A3 /* FriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8206C51E6902F0000A35A3 /* FriendViewCell.swift */; };
+		0C8206C81E69032C000A35A3 /* RequestFriendViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8206C71E69032C000A35A3 /* RequestFriendViewCell.swift */; };
+		0C8206CB1E691206000A35A3 /* FriendRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8206CA1E691206000A35A3 /* FriendRequest.swift */; };
+		0C8206CD1E6913AF000A35A3 /* FriendResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8206CC1E6913AF000A35A3 /* FriendResponse.swift */; };
+		0C8206CF1E691A39000A35A3 /* FriendResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8206CE1E691A39000A35A3 /* FriendResponseModel.swift */; };
 		0C8840081E5A9B9A00F96F28 /* EnterCodeViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8840071E5A9B9A00F96F28 /* EnterCodeViewCell.swift */; };
 		0C88400A1E5A9BB000F96F28 /* EventViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C8840091E5A9BB000F96F28 /* EventViewCell.swift */; };
 		0C88400C1E5A9DAA00F96F28 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C88400B1E5A9DAA00F96F28 /* EventViewController.swift */; };
@@ -75,6 +81,12 @@
 		0C6C3A2B1E4326F300AFECEA /* LoginRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginRequest.swift; sourceTree = "<group>"; };
 		0C6C3A2E1E4337EA00AFECEA /* Constant.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		0C6C3A301E43436300AFECEA /* AlertHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertHelper.swift; sourceTree = "<group>"; };
+		0C8206C31E690269000A35A3 /* FriendsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendsViewController.swift; sourceTree = "<group>"; };
+		0C8206C51E6902F0000A35A3 /* FriendViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendViewCell.swift; sourceTree = "<group>"; };
+		0C8206C71E69032C000A35A3 /* RequestFriendViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestFriendViewCell.swift; sourceTree = "<group>"; };
+		0C8206CA1E691206000A35A3 /* FriendRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendRequest.swift; sourceTree = "<group>"; };
+		0C8206CC1E6913AF000A35A3 /* FriendResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendResponse.swift; sourceTree = "<group>"; };
+		0C8206CE1E691A39000A35A3 /* FriendResponseModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FriendResponseModel.swift; sourceTree = "<group>"; };
 		0C8840071E5A9B9A00F96F28 /* EnterCodeViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EnterCodeViewCell.swift; sourceTree = "<group>"; };
 		0C8840091E5A9BB000F96F28 /* EventViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewCell.swift; sourceTree = "<group>"; };
 		0C88400B1E5A9DAA00F96F28 /* EventViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
@@ -156,6 +168,8 @@
 				0C633A511E53F90E00EBB143 /* MenuItemViewCell.swift */,
 				0C8840071E5A9B9A00F96F28 /* EnterCodeViewCell.swift */,
 				0C8840091E5A9BB000F96F28 /* EventViewCell.swift */,
+				0C8206C51E6902F0000A35A3 /* FriendViewCell.swift */,
+				0C8206C71E69032C000A35A3 /* RequestFriendViewCell.swift */,
 			);
 			name = Cell;
 			sourceTree = "<group>";
@@ -173,6 +187,16 @@
 			name = Common;
 			sourceTree = "<group>";
 		};
+		0C8206C91E6911EC000A35A3 /* FriendModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C8206CA1E691206000A35A3 /* FriendRequest.swift */,
+				0C8206CC1E6913AF000A35A3 /* FriendResponse.swift */,
+				0C8206CE1E691A39000A35A3 /* FriendResponseModel.swift */,
+			);
+			name = FriendModel;
+			sourceTree = "<group>";
+		};
 		0C88400D1E5AA0D800F96F28 /* EventModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -186,6 +210,7 @@
 		0CABB53A1E42E03A0056FA78 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0C8206C91E6911EC000A35A3 /* FriendModel */,
 				0CD0E7D01E6675C900092B94 /* UserInfoModel */,
 				0CBCA52F1E6146E2002A1AF9 /* MessageModel */,
 				0C3C9FA41E5BF3FF009B8EBA /* BonusModel */,
@@ -272,6 +297,7 @@
 				0C1859BD1E530FCE00E5A650 /* MainViewController.swift */,
 				0C88400B1E5A9DAA00F96F28 /* EventViewController.swift */,
 				0C56284A1E65353500CA8CAB /* ProfileViewController.swift */,
+				0C8206C31E690269000A35A3 /* FriendsViewController.swift */,
 			);
 			name = ViewController;
 			sourceTree = "<group>";
@@ -455,16 +481,20 @@
 				0CED74BD1E44FDDA0050DD8C /* RegistRequest.swift in Sources */,
 				0CABB53C1E42E06C0056FA78 /* BaseResponse.swift in Sources */,
 				0C3C9FA81E5BF6D4009B8EBA /* BonusResponse.swift in Sources */,
+				0C8206CB1E691206000A35A3 /* FriendRequest.swift in Sources */,
 				0C50ECAE1E4D620700E66DA7 /* BaseRequest.swift in Sources */,
 				0C88400C1E5A9DAA00F96F28 /* EventViewController.swift in Sources */,
 				0CC5F77B1E4DD0A4001FCAE4 /* GuideRequest.swift in Sources */,
 				0C8840131E5AA1A100F96F28 /* EventModel.swift in Sources */,
 				0C0A669A1E4428F3000C5AEA /* RegistViewController.swift in Sources */,
 				0CD0E7D21E6675F500092B94 /* UserInfoRequest.swift in Sources */,
+				0C8206CF1E691A39000A35A3 /* FriendResponseModel.swift in Sources */,
+				0C8206CD1E6913AF000A35A3 /* FriendResponse.swift in Sources */,
 				0CD2FBE71E35AC670015C4FE /* LoginViewController.swift in Sources */,
 				0C88400A1E5A9BB000F96F28 /* EventViewCell.swift in Sources */,
 				0C1859CB1E533D7900E5A650 /* KYEmbedMainControllerSegue.swift in Sources */,
 				0CDE1B161E44851800D38B92 /* DGRunkeeperSwitch.swift in Sources */,
+				0C8206C61E6902F0000A35A3 /* FriendViewCell.swift in Sources */,
 				0C8840081E5A9B9A00F96F28 /* EnterCodeViewCell.swift in Sources */,
 				0CC5F77D1E4DD375001FCAE4 /* GuideResponse.swift in Sources */,
 				0C1859C51E53366400E5A650 /* DrawerViewController.swift in Sources */,
@@ -480,6 +510,7 @@
 				0CECF1051E4C0E51003F7D93 /* SubGuideViewController.swift in Sources */,
 				0C1859C91E533D7900E5A650 /* KYDrawerController.swift in Sources */,
 				0C0FB9DD1E437731005BC48E /* Utils.swift in Sources */,
+				0C8206C41E690269000A35A3 /* FriendsViewController.swift in Sources */,
 				0C633A521E53F90E00EBB143 /* MenuItemViewCell.swift in Sources */,
 				0C6C3A2A1E43223300AFECEA /* LoginResponse.swift in Sources */,
 				0C6C3A311E43436300AFECEA /* AlertHelper.swift in Sources */,
@@ -487,6 +518,7 @@
 				0C3C9FAA1E5BF72B009B8EBA /* ItemModel.swift in Sources */,
 				0CBCA5311E6146FB002A1AF9 /* MessageModel.swift in Sources */,
 				0CED74BF1E44FE6E0050DD8C /* RegistResponse.swift in Sources */,
+				0C8206C81E69032C000A35A3 /* RequestFriendViewCell.swift in Sources */,
 				0C6C3A2C1E4326F300AFECEA /* LoginRequest.swift in Sources */,
 				0C3C9FA61E5BF416009B8EBA /* BonusRequest.swift in Sources */,
 				0C88400F1E5AA0EA00F96F28 /* EventRequest.swift in Sources */,

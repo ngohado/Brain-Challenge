@@ -12,6 +12,13 @@ import MBProgressHUD
 
 class ProfileViewController: UIViewController {
     
+    class func navigate(viewConstroller: UIViewController, idShow: String) {
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyBoard.instantiateViewController(withIdentifier: ProfileViewController.getIdentifier()) as! ProfileViewController
+        vc.idShow = idShow
+        viewConstroller.present(vc, animated: true, completion: nil)
+    }
+    
     class func getIdentifier() -> String {
         return "ProfileViewController"
     }
@@ -87,14 +94,20 @@ class ProfileViewController: UIViewController {
         
         if let email = user.email {
             lbEmail.text = email
+        } else {
+            lbEmail.text = ""
         }
         
         if let phone = user.phone {
             lbPhone.text = phone
+        } else {
+            lbPhone.text = ""
         }
         
         if let gender = user.gender {
             lbGender.text = gender == 1 ? "Male" : "Female"
+        } else {
+            lbGender.text = ""
         }
         
         if let typeAcc = user.type {
@@ -130,6 +143,9 @@ class ProfileViewController: UIViewController {
             } else {
                 ivRank.image = #imageLiteral(resourceName: "level5")
             }
+        } else {
+            lbScore.text = "0 points"
+            ivRank.image = #imageLiteral(resourceName: "level1")
         }
         
         if let avatar = user.avatar, !avatar.isEmpty {
