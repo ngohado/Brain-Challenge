@@ -38,6 +38,9 @@ PODS:
   - Realm/Headers (2.4.2)
   - RealmSwift (2.4.2):
     - Realm (= 2.4.2)
+  - RxCocoa (3.2.0):
+    - RxSwift (~> 3.1)
+  - RxSwift (3.2.0)
   - Socket.IO-Client-Swift (8.2.0)
   - TwitterCore (2.8.0):
     - Fabric
@@ -54,6 +57,8 @@ DEPENDENCIES:
   - Kingfisher (~> 3.0)
   - MBProgressHUD
   - RealmSwift
+  - RxCocoa (~> 3.0)
+  - RxSwift (~> 3.0)
   - Socket.IO-Client-Swift (~> 8.2.0)
   - TwitterKit
 
@@ -74,10 +79,12 @@ SPEC CHECKSUMS:
   ObjectMapper: 9e385c2295bcc4e16eabbcfc85db801442bba545
   Realm: d27b758e12d62a3371879a065d4c40aa212c5a54
   RealmSwift: 9556c0fe0f0cfecacfb755ae9e68ff379fc6bead
+  RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
+  RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
   Socket.IO-Client-Swift: 900cf511777045c80d1ce1f11f71261e87765dd1
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: f7b0a1adcb800f6446ff0ef70164797376522ff3
 
-PODFILE CHECKSUM: 945b5ef4cd872a5db7317e314cd78ac9c98d6e32
+PODFILE CHECKSUM: c7efe104fcd34fa6dea173fbbbfdabaf93a30001
 
 COCOAPODS: 1.1.1

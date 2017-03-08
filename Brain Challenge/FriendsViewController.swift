@@ -13,8 +13,8 @@ class FriendsViewController: UIViewController {
     
     @IBOutlet weak var friendsTableView: UITableView!
     
-//    let id = UserRealm.getUserInfo()?._id
-    let id = "58984d5efefb94049767d36b"
+    let id = (UserRealm.getUserInfo()?._id)!
+//    let id = "58984d5efefb94049767d36b"
     
     var friends: [User] = []
     var friendsRequest: [User] = []

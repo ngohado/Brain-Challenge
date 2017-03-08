@@ -14,6 +14,10 @@ class BaseResponse: Mappable {
     var errorCode: Int?
     var errorMessage: String?
     
+    init() {
+        status = 0
+    }
+    
     required init?(map: Map){
         
     }

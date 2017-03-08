@@ -58,6 +58,15 @@ class ApiConstant {
         return BASE_API + "/friends"
     }
     
+    class func getApiSearchUser() -> String {
+        return BASE_API + "/searchuser"
+    }
+    
+    class func getApiRank() -> String {
+        return BASE_API + "/ranks"
+    }
+    
+    
 }
 
 class OnEventConstant {
@@ -89,6 +98,21 @@ class OnEventConstant {
     class func getFriendsOnlineEvent() -> String {
         return "friendsOnlineList"
     }
+}
+
+/*
+ 0: yourself
+ 1: send request
+ 2: receive request
+ 3: friend
+ 4: not friend
+ */
+class TypeFriend {
+    static let YOURSELF = 0
+    static let SEND_REQUEST = 1
+    static let RECEIVE_REQUEST = 2
+    static let FRIEND = 3
+    static let NOT_FRIEND = 4
 }
 
 class EmitEventConstant {
