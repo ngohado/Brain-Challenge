@@ -11,6 +11,10 @@ import Alamofire
 
 class FriendsViewController: UIViewController {
     
+    class func getIdentifier() -> String {
+        return "FriendsViewController"
+    }
+    
     @IBOutlet weak var friendsTableView: UITableView!
     
     let id = (UserRealm.getUserInfo()?._id)!
@@ -21,6 +25,9 @@ class FriendsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        friendsTableView.contentInset.top = getTopInsect()
+        friendsTableView.contentInset.bottom = 50
         
         friendsTableView.dataSource = self
         friendsTableView.delegate = self

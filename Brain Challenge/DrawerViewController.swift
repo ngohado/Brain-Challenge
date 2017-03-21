@@ -23,7 +23,7 @@ class DrawerViewController: UIViewController {
     
     var drawerProtocol: DrawerProtocol?
     
-    let items: Array<MenuItem> = [MenuItem(icon: #imageLiteral(resourceName: "ic_view_day"), label: "Battle rooms"),
+    let items: Array<MenuItem> = [MenuItem(icon: #imageLiteral(resourceName: "ic_view_day"), label: "Events"),
                                   MenuItem(icon: #imageLiteral(resourceName: "ic_cancel"), label: "Create room"),
                                   MenuItem(icon: #imageLiteral(resourceName: "ic_people"), label: "Friends"),
                                   MenuItem(icon: #imageLiteral(resourceName: "ic_stars"), label: "Rank"),

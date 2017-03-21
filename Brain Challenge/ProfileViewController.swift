@@ -16,13 +16,15 @@ class ProfileViewController: UIViewController {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyBoard.instantiateViewController(withIdentifier: ProfileViewController.getIdentifier()) as! ProfileViewController
         vc.idShow = idShow
-        viewConstroller.present(vc, animated: true, completion: nil)
+        vc.isPresent = false
+        viewConstroller.navigationController?.pushViewController(vc, animated: true)
     }
     
     class func getIdentifier() -> String {
         return "ProfileViewController"
     }
     
+    @IBOutlet weak var scrollVIew: UIScrollView!
     @IBOutlet weak var ivAvatar: UIImageView!
     @IBOutlet weak var ivFriendStatus: UIButton!
     @IBOutlet weak var lbName: UILabel!
@@ -41,9 +43,19 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var item4Quantity: UILabel!
     
     var idShow: String = ""
+    var isPresent: Bool?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if isPresent! {
+            scrollVIew.contentInset.top = getTopInsect()
+        } else {
+            let backItem = UIBarButtonItem()
+            backItem.title = "Back"
+            navigationItem.backBarButtonItem = backItem
+        }
+        
         
         if idShow.isEmpty {
             dismiss(animated: true, completion: nil)
@@ -190,10 +202,6 @@ class ProfileViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    func sortItem(items: [Item]) {
-        
     }
     
     override func didReceiveMemoryWarning() {

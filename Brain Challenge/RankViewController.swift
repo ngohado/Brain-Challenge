@@ -10,12 +10,19 @@ import UIKit
 import Alamofire
 
 class RankViewController: UIViewController {
+    
+    class func getIdentifier() -> String {
+        return "RankViewController"
+    }
+    
     @IBOutlet weak var rankTableView: UITableView!
     var users: [UserInfo] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        rankTableView.contentInset.top = getTopInsect()
+        rankTableView.contentInset.bottom = 50
+        
         rankTableView.dataSource = self
         rankTableView.delegate = self
         

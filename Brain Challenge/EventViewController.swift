@@ -27,6 +27,8 @@ class EventViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+//        eventTableView.contentInset.top = getTopInsect()
+        eventTableView.contentInset.bottom = 50
         
         alertCongrat.layer.cornerRadius = 5
         alertCongrat.clipsToBounds = true
@@ -146,4 +148,12 @@ extension EventViewController: UITableViewDataSource {
     }
     
     
+}
+
+extension UIViewController {
+    func getTopInsect() -> CGFloat {
+        let height = UIApplication.shared.statusBarFrame.height +
+            self.navigationController!.navigationBar.frame.height
+        return CGFloat(height)
+    }
 }

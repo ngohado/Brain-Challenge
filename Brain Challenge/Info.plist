@@ -48,6 +48,8 @@
     
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Set the Background</string>
+    <key>NSCameraUsageDescription</key>
+    <string>To send image</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

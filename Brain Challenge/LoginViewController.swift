@@ -17,6 +17,9 @@ import FacebookLogin
 import TwitterKit
 import TwitterCore
 import SocketIO
+import RealmSwift
+import RxSwift
+import RxCocoa
 
 class LoginViewController: UIViewController {
     
@@ -29,7 +32,7 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        print((Date().timeIntervalSince1970 * 1000).rounded())
     }
 
     override func didReceiveMemoryWarning() {

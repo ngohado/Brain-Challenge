@@ -7,7 +7,7 @@
 //
 
 class ApiConstant {
-    static let BASE_URL = "http://127.0.0.1"
+    static let BASE_URL = "http://192.168.1.66"
     static let BASE_API = "\(BASE_URL):8080"
     
     class func getApiLogin() -> String {
@@ -66,6 +66,13 @@ class ApiConstant {
         return BASE_API + "/ranks"
     }
     
+    class func getApiUploadImage() -> String {
+        return BASE_API + "/upimage"
+    }
+    
+    class func getApiMessageHistory() -> String {
+        return BASE_API + "/messagehistory"
+    }
     
 }
 
@@ -87,12 +94,16 @@ class OnEventConstant {
         return "disconnect"
     }
     
-    class func getOnlineOnEvent() -> String {
+    class func getOnlineEvent() -> String {
         return "informOnline"
     }
     
     class func getOfflineEvent() -> String {
         return "informOffline"
+    }
+    
+    class func getTypingEvent() -> String {
+        return "typing"
     }
     
     class func getFriendsOnlineEvent() -> String {
@@ -115,9 +126,32 @@ class TypeFriend {
     static let NOT_FRIEND = 4
 }
 
+class TypeMessage {
+    static let MESSAGE_NORMAL = 1
+    static let MESSAGE_PHOTO = 2
+    static let TYPING = 3
+    static let UNTYPING = 4
+}
+
 class EmitEventConstant {
     class func getInitDataEvent() -> String {
         return "initdata"
+    }
+    
+    class func getMessagingEvent() -> String {
+        return "message"
+    }
+    
+    class func getOnlineEvent() -> String {
+        return "online"
+    }
+    
+    class func getOffilineEvent() -> String {
+        return "offline"
+    }
+    
+    class func getTypingEvent() -> String {
+        return OnEventConstant.getTypingEvent()
     }
 }
 

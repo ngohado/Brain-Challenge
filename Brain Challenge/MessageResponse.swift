@@ -6,7 +6,6 @@
 //  Copyright © 2017 Hado. All rights reserved.
 //
 
-import Foundation
 import ObjectMapper
 
 class MessageHistoryResponse: BaseResponse {
@@ -18,5 +17,24 @@ class MessageHistoryResponse: BaseResponse {
     }
     
 }
+
+class MessageResponse: BaseResponse {
+    var messages: Message?
+    
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        messages <- map["data"]
+    }
+}
+
+class StatusResponse: BaseResponse {
+    var id: String?
+    
+    override func mapping(map: Map) {
+        super.mapping(map: map)
+        id <- map["data"]
+    }
+}
+
 
 

@@ -16,6 +16,7 @@ class GuideViewController: UIPageViewController {
         return "GuideViewController"
     }
     
+    
     class func navigate(viewConstroller: UIViewController) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
         let guideViewConstroller = storyBoard.instantiateViewController(withIdentifier: GuideViewController.getIdentifier()) as! GuideViewController

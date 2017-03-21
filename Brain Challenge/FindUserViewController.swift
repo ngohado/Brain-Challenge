@@ -13,6 +13,10 @@ import Alamofire
 
 class FindUserViewController: UIViewController {
     
+    class func getIdentifier() -> String {
+        return "FindUserViewController"
+    }
+    
     @IBOutlet weak var edtSearch: UISearchBar!
     @IBOutlet weak var usersTableView: UITableView!
     var dispose: Disposable?
@@ -21,6 +25,9 @@ class FindUserViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        usersTableView.contentInset.top = getTopInsect() + edtSearch.frame.height
+        usersTableView.contentInset.bottom = 50
+        
         usersTableView.dataSource = self
         usersTableView.delegate = self
         

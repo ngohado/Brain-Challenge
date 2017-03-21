@@ -8,6 +8,8 @@
 
 import ObjectMapper
 import RealmSwift
+import RxSwift
+import RxCocoa
 
 class User: Mappable {
     var _id: String?
@@ -23,6 +25,8 @@ class User: Mappable {
     var firstLogin: Int?
     var items: [Item]?
     var token: String?
+    
+    var isRead = true
     
     required init?(map: Map) {
         
@@ -62,6 +66,7 @@ class User: Mappable {
         self.type <- map["type"]
         self.items <- map["item"]
         self.firstLogin <- map["firstLogin"]
+        self.isRead <- map["isRead"]
     }
     
 }
@@ -112,9 +117,8 @@ class UserRealm: Object {
     class func getUserInfo() -> User? {
         do {
             let realm = try Realm()
-            let users = realm.objects(UserRealm.self)
-            if users.count > 0 {
-                return User(user: users[users.count - 1])
+            if let lastUser = realm.objects(UserRealm.self).last {
+                return User(user: lastUser)
             }
         } catch let error as NSError{
             print(error)

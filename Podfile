@@ -19,6 +19,9 @@ target 'Brain Challenge' do
   pod 'Socket.IO-Client-Swift', '~> 8.2.0'
   pod 'RxSwift',    '~> 3.0'
   pod 'RxCocoa',    '~> 3.0'
+  pod 'JSQMessagesViewController'
+  pod 'SwiftGifOrigin', '~> 1.6.1'
+  pod 'SVPullToRefresh', :git => 'https://github.com/gabro/SVPullToRefresh.git', :branch => 'top-infinitescrolling'
 end
 
 post_install do |installer|

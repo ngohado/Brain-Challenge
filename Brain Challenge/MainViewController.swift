@@ -11,31 +11,60 @@ import SocketIO
 
 class MainViewController: UIViewController {
     @IBOutlet weak var container: UIView!
+    @IBOutlet weak var tab1: UIButton!
+    @IBOutlet weak var tab2: UIButton!
+    @IBOutlet weak var tab3: UIButton!
+    @IBOutlet weak var tab4: UIButton!
+    @IBOutlet weak var ivDotTab3: UIImageView!
+    @IBOutlet weak var ivDotTab4: UIImageView!
+    
+    var currentTab: UIViewController?
     
     var drawerViewController: DrawerViewController?
     
     var viewControllerMenuRight: [UIViewController] = []
     
+    var searchViewController: FindUserViewController?
+    var chatViewController: ChatViewController?
+    var mainChatViewController: MainChatViewController?
     
     static var mainStoryboard: UIStoryboard {
         return UIStoryboard(name: "Main", bundle: Bundle.main)
     }
     
+    static let idMe = UserRealm.getUserInfo()?._id
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         drawerViewController?.drawerProtocol = self
+        SocketUtil.setMessageProtocol(listener: self)
+        SocketUtil.haveOfflineMsgProtocol = self
+        
+        automaticallyAdjustsScrollViewInsets = false
         
         initViewControllerMenuRight()
+        initViewControllerTab()
+        
+        SocketUtil.connectChat()
     }
     
     func initViewControllerMenuRight() {
         viewControllerMenuRight.append(MainViewController.mainStoryboard.instantiateViewController(withIdentifier: EventViewController.getIdentifier()))
+        viewControllerMenuRight.append(UIViewController())
+        viewControllerMenuRight.append(MainViewController.mainStoryboard.instantiateViewController(withIdentifier: FriendsViewController.getIdentifier()))
+        viewControllerMenuRight.append(MainViewController.mainStoryboard.instantiateViewController(withIdentifier: RankViewController.getIdentifier()))
+        viewControllerMenuRight.append(UIViewController())
+    }
+    
+    func initViewControllerTab() {
+        searchViewController = MainViewController.mainStoryboard.instantiateViewController(withIdentifier: FindUserViewController.getIdentifier()) as? FindUserViewController
+        mainChatViewController = MainViewController.mainStoryboard.instantiateViewController(withIdentifier: MainChatViewController.getIdentifier()) as? MainChatViewController
+        chatViewController = ChatViewController()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     @IBAction func menuClicked(_ sender: Any) {
@@ -44,15 +73,79 @@ class MainViewController: UIViewController {
         }
     }
     
+    @IBAction func tab1Clicked(_ sender: Any) {
+    }
     
+    @IBAction func tab2Clicked(_ sender: Any) {
+        currentTab = searchViewController
+        fetchView()
+    }
+    
+    @IBAction func tab3Clicked(_ sender: Any) {
+        ivDotTab3.isHidden = true
+        currentTab = mainChatViewController
+        fetchView()
+    }
+    
+    @IBAction func tab4Clicked(_ sender: Any) {
+        if chatViewController?.idReceiver == nil {
+            tab3Clicked(Any.self)
+            return
+        }
+        ivDotTab4.isHidden = true
+        currentTab = chatViewController
+        fetchView()
+    }
+    
+    func fetchView() {
+        addChildViewController(currentTab!)
+        currentTab?.view.frame = container.bounds
+        container.addSubview((currentTab?.view)!)
+        currentTab?.didMove(toParentViewController: self)
+    }
 
+}
+
+extension MainViewController: SocketHandleData {
+    func onReceive<BaseResponse>(event: String, data: BaseResponse) {
+        switch event {
+        case OnEventConstant.getMessageEvent():
+            let msg = (data as! MessageResponse).messages
+            if let chatVC = currentTab as? ChatViewController {
+                if msg?.idSender != chatVC.idReceiver {
+                    ivDotTab3.isHidden = false
+                    MainChatViewController.friendOnline[0].isRead = false
+                }
+            } else if (currentTab as? MainChatViewController) != nil {
+                if msg?.idSender == chatViewController?.idReceiver {
+                    ivDotTab4.isHidden = false
+                } else {
+                    
+                    //TODO: xu ly tab 3 hien thi tin nhan moi den va reload lai list view
+                }
+            } else {
+                if msg?.idSender == chatViewController?.idReceiver {
+                    ivDotTab4.isHidden = false
+                } else {
+                    ivDotTab3.isHidden = false
+                    //TODO: xu ly tab 3 hien thi tin nhan moi den va reload lai list view
+                }
+            }
+            break
+        case "Have message offline":
+            ivDotTab3.isHidden = false
+            break
+        default:
+            print(event)
+        }
+    }
 }
 
 extension MainViewController: DrawerProtocol {
     func selectedItem(index: Int) {
-        var currentTab: UIViewController?
         if index == -1 {
             let profileVC = MainViewController.mainStoryboard.instantiateViewController(withIdentifier: ProfileViewController.getIdentifier()) as! ProfileViewController
+            profileVC.isPresent = true
             profileVC.idShow = (UserRealm.getUserInfo()?._id)!
             currentTab = profileVC
             
@@ -60,11 +153,7 @@ extension MainViewController: DrawerProtocol {
             currentTab = viewControllerMenuRight[index]
         }
         
-        addChildViewController(currentTab!)
-        currentTab!.view.frame = container.bounds
-        container.addSubview(currentTab!.view)
-        currentTab!.didMove(toParentViewController: self)
-        
+        fetchView()
     }
     
     

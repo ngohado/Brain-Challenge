@@ -21,18 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         Fabric.with([Twitter.self])
-//        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-//        let mainViewController   = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
-//        let drawerViewController = storyBoard.instantiateViewController(withIdentifier: "DrawerViewController") as! DrawerViewController
-//        let drawerController     = KYDrawerController(drawerDirection: .left, drawerWidth: 300)
-//        drawerController.mainViewController = UINavigationController(
-//            rootViewController: mainViewController
-//        )
-//        drawerController.drawerViewController = drawerViewController
-//        
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//        window?.rootViewController = drawerController
-//        window?.makeKeyAndVisible()
 
         
         return FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
