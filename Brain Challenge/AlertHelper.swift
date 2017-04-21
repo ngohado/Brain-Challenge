@@ -110,11 +110,84 @@ class AlertHelper {
 
     class func showAlertFriendSheet(viewController: UIViewController, cbCancelFriend: @escaping (_ alert: UIAlertController) -> Void) {
         let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
         alert.addAction(UIAlertAction(title: "Cancel friend", style: .default, handler: { (UIAlertAction) in
             cbCancelFriend(alert)
         }))
         
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        viewController.present(alert, animated: true, completion: nil)
+    }
+    
+    class func showDialogCreateRoom(viewController: UIViewController, cbCancelFriend: @escaping (_ alert: UIAlertController) -> Void, cbCreate: @escaping (_ alert: UIAlertController, _ roomName: String, _ password: String?) -> Void) {
+        let alert = UIAlertController(title: "Create room", message: "Enter room name", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (tfRoom) in
+            tfRoom.placeholder = "Enter room name"
+        }
+        
+        let button1 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        
+        let button2 = UIAlertAction(title: "Create", style: UIAlertActionStyle.default, handler: {
+            (actionButton2) in
+            alert.dismiss(animated: true, completion: nil)
+            
+            let roomName = alert.textFields?.first?.text
+            
+            let alertSetupPassword = UIAlertController(title: "Set password", message: "If you want to set password to room, please fill up text field below", preferredStyle: UIAlertControllerStyle.alert)
+            
+            alertSetupPassword.addTextField { (tfRoom) in
+                tfRoom.placeholder = "Enter room password"
+            }
+            
+            let btnDontSet = UIAlertAction(title: "Don't set", style: UIAlertActionStyle.default, handler: {
+                (temp) in
+                alertSetupPassword.dismiss(animated: true, completion: nil)
+                cbCreate(alert, roomName!, nil)
+            })
+            
+            let btnSet = UIAlertAction(title: "Set", style: UIAlertActionStyle.default, handler: {
+                (temp) in
+                alertSetupPassword.dismiss(animated: true, completion: nil)
+                cbCreate(alert, roomName!, alertSetupPassword.textFields?.first?.text)
+            })
+            
+            alertSetupPassword.addAction(btnDontSet)
+            alertSetupPassword.addAction(btnSet)
+            
+            viewController.present(alertSetupPassword, animated: true, completion: nil)
+        })
+        
+        alert.addAction(button1)
+        alert.addAction(button2)
+        
+        viewController.present(alert, animated: true, completion: nil)
+    }
+    
+    class func showDialogConfirmPassword(viewController: UIViewController, cbCancel: @escaping (_ alert: UIAlertController) -> Void, cbConfirm: @escaping (_ alert: UIAlertController, _ password: String?) -> Void) {
+        let alert = UIAlertController(title: "Password room", message: "Enter room password", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (tfRoom) in
+            tfRoom.placeholder = "Enter password"
+        }
+        
+        let button1 = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        
+        let button2 = UIAlertAction(title: "Join", style: UIAlertActionStyle.default, handler: {
+            (actionButton2) in
+            let passwordTyped = alert.textFields?.first?.text
+            cbConfirm(alert, passwordTyped)
+        })
+        
+        alert.addAction(button1)
+        alert.addAction(button2)
         
         viewController.present(alert, animated: true, completion: nil)
     }

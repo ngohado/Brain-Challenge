@@ -20,6 +20,11 @@ class Item: Mappable {
         
     }
     
+    init(id: Int) {
+        self.id = id
+        quantity = 0
+    }
+    
     func mapping(map: Map) {
         id <- map["item_id"]
         name <- map["item_name"]
@@ -27,4 +32,5 @@ class Item: Mappable {
         description <- map["item_description"]
         quantity <- map["item_quantity"]
     }
+    
 }

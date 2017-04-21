@@ -24,6 +24,7 @@ class MainViewController: UIViewController {
     
     var viewControllerMenuRight: [UIViewController] = []
     
+    var roomViewController: RoomViewController?
     var searchViewController: FindUserViewController?
     var chatViewController: ChatViewController?
     var mainChatViewController: MainChatViewController?
@@ -40,11 +41,15 @@ class MainViewController: UIViewController {
         drawerViewController?.drawerProtocol = self
         SocketUtil.setMessageProtocol(listener: self)
         SocketUtil.haveOfflineMsgProtocol = self
+        SocketUtil.receiveInvitationProtocol = self
         
         automaticallyAdjustsScrollViewInsets = false
         
         initViewControllerMenuRight()
         initViewControllerTab()
+        
+        currentTab = roomViewController
+        fetchView()
         
         SocketUtil.connectChat()
     }
@@ -58,8 +63,12 @@ class MainViewController: UIViewController {
     }
     
     func initViewControllerTab() {
+        roomViewController = MainViewController.mainStoryboard.instantiateViewController(withIdentifier: RoomViewController.getIdentifier()) as? RoomViewController
+        
         searchViewController = MainViewController.mainStoryboard.instantiateViewController(withIdentifier: FindUserViewController.getIdentifier()) as? FindUserViewController
+        
         mainChatViewController = MainViewController.mainStoryboard.instantiateViewController(withIdentifier: MainChatViewController.getIdentifier()) as? MainChatViewController
+        
         chatViewController = ChatViewController()
     }
 
@@ -74,15 +83,26 @@ class MainViewController: UIViewController {
     }
     
     @IBAction func tab1Clicked(_ sender: Any) {
+        if (currentTab as? RoomViewController) != nil {
+            return
+        }
+        currentTab = roomViewController
+        fetchView()
     }
     
     @IBAction func tab2Clicked(_ sender: Any) {
+        if (currentTab as? FindUserViewController) != nil {
+            return
+        }
         currentTab = searchViewController
         fetchView()
     }
     
     @IBAction func tab3Clicked(_ sender: Any) {
         ivDotTab3.isHidden = true
+        if (currentTab as? MainChatViewController) != nil {
+            return
+        }
         currentTab = mainChatViewController
         fetchView()
     }
@@ -92,6 +112,11 @@ class MainViewController: UIViewController {
             tab3Clicked(Any.self)
             return
         }
+        
+        if (currentTab as? ChatViewController) != nil {
+            return
+        }
+        
         ivDotTab4.isHidden = true
         currentTab = chatViewController
         fetchView()
@@ -135,6 +160,19 @@ extension MainViewController: SocketHandleData {
         case "Have message offline":
             ivDotTab3.isHidden = false
             break
+        case EmitEventConstant.getReceiveInvitationEvent():
+            let room = (data as! RoomActionResponse).room
+            let title = "Onwer room \((room?.roomName)!) is \((room?.userHost?.name)!) inviting you"
+            AlertHelper.showAlert(viewController: self, title: "Have invitation", message: title, titleButton1: "Reject", titleButton2: "Accept", callback1: { (alert) in
+                SocketUtil.emitBattleData(event: EmitEventConstant.getResultInvitationEvent(), jsonData: (room?.toJSONString())!)
+            }, callback2: { (alert) in
+                room?.userMember = UserRealm.getUserInfo()
+                SocketUtil.emitBattleData(event: EmitEventConstant.getResultInvitationEvent(), jsonData: (room?.toJSONString())!)
+                WaitingRoomViewController.navigate(viewController: self, room: room!, cbUpdate: { 
+                    //do nothing
+                })
+            })
+            break
         default:
             print(event)
         }
@@ -149,6 +187,17 @@ extension MainViewController: DrawerProtocol {
             profileVC.idShow = (UserRealm.getUserInfo()?._id)!
             currentTab = profileVC
             
+        } else if index == 1 {
+            AlertHelper.showDialogCreateRoom(viewController: self, cbCancelFriend: { (alert) in
+                
+            }, cbCreate: { (alert, roomName, password) in
+                let userHost = UserRealm.getUserInfo()
+                let roomCreated: Room = Room(userHost: userHost!, userMember: nil, roomName: roomName, password: password, time: Date().millisecondsSince1970)
+                SocketUtil.emitBattleData(event: EmitEventConstant.getCreateRoomEvent(), jsonData: roomCreated.toJSONString()!)
+                WaitingRoomViewController.navigate(viewController: self, room: roomCreated) {
+                    
+                }
+            })
         } else {
             currentTab = viewControllerMenuRight[index]
         }
@@ -159,9 +208,9 @@ extension MainViewController: DrawerProtocol {
     
     class func navigate(viewController: UIViewController) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
-        let mainViewController   = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
+        let mainViewController = storyBoard.instantiateViewController(withIdentifier: "MainViewController") as! MainViewController
         let drawerViewController = storyBoard.instantiateViewController(withIdentifier: "DrawerViewController") as! DrawerViewController
-        let drawerController     = KYDrawerController(drawerDirection: .left, drawerWidth: 300)
+        let drawerController = KYDrawerController(drawerDirection: .left, drawerWidth: 300)
         drawerController.mainViewController = UINavigationController(
             rootViewController: mainViewController
         )   

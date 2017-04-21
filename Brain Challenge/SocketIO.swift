@@ -40,6 +40,22 @@ class SocketUtil {
     static var typingProtocol: SocketHandleData?
     static var haveOfflineMsgProtocol: SocketHandleData?
     
+    static var roomsProtocol: SocketHandleData?
+    static var createProtocol: SocketHandleData?
+    static var joinRoomProtocol: SocketHandleData?
+    static var exitRoomProtocol: SocketHandleData?
+    static var readyProtocol: SocketHandleData?
+    static var kickProtocol: SocketHandleData?
+    static var questionProtocol: SocketHandleData?
+    static var battleStartProtocol: SocketHandleData?
+    static var rivalAnswerProtocol: SocketHandleData?
+    static var nextQuestionProtocol: SocketHandleData?
+    static var freezeProtocol: SocketHandleData?
+    static var resultQuestionProtocol: SocketHandleData?
+    static var sentInvitationProtocol: SocketHandleData?
+    static var resultInvitationProtocol: SocketHandleData?
+    static var receiveInvitationProtocol: SocketHandleData?
+    static var cancelRoomProtocol: [SocketHandleData] = []
     
     class func setMsgHistoryProtocol(listener: SocketHandleData) {
         msgHistoryProtocol.append(listener)
@@ -150,6 +166,88 @@ class SocketUtil {
         }
         
         socketChat.connect()
+    }
+    
+    
+    class func connectBattle() {
+        socketBattle.on(OnEventConstant.getConnectionEvent()) {
+            data, ack in
+            isConnect = true
+            //TODO: emit id to sever
+            socketBattle.emit(EmitEventConstant.getInitDataEvent(), (UserRealm.getUserInfo()?.toJSONString())!)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getRoomEvent()) { (rooms: RoomsResponse) in
+            roomsProtocol?.onReceive(event: EmitEventConstant.getRoomEvent(), data: rooms)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getJoinRoomEvent()) { (room: RoomActionResponse) in
+            joinRoomProtocol?.onReceive(event: EmitEventConstant.getJoinRoomEvent(), data: room)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getExitRoomEvent()) { (room: RoomActionResponse) in
+            exitRoomProtocol?.onReceive(event: EmitEventConstant.getExitRoomEvent(), data: room)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getCreateRoomEvent()) { (room: RoomActionResponse) in
+            createProtocol?.onReceive(event: EmitEventConstant.getCreateRoomEvent(), data: room)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getCancelRoomEvent()) { (room: RoomActionResponse) in
+            for cb in cancelRoomProtocol {
+                cb.onReceive(event: EmitEventConstant.getCancelRoomEvent(), data: room)
+            }
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getReadyEvent()) { (readyModel: ReadyResponse) in
+            readyProtocol?.onReceive(event: EmitEventConstant.getReadyEvent(), data: readyModel)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getQuestionEvent()) { (questionRes: QuestionResponse) in
+            questionProtocol?.onReceive(event: EmitEventConstant.getQuestionEvent(), data: questionRes)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getBattleStartEvent()) { (room: RoomActionResponse) in
+            battleStartProtocol?.onReceive(event: EmitEventConstant.getBattleStartEvent(), data: room)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getKickEvent()) { (room: RoomActionResponse) in
+            kickProtocol?.onReceive(event: EmitEventConstant.getKickEvent(), data: room)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getRivalAnswerEvent()) { (answerRes: AnswerResponse) in
+            rivalAnswerProtocol?.onReceive(event: EmitEventConstant.getRivalAnswerEvent(), data: answerRes)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getNextQuestionEvent()) { (res: BaseResponse) in
+            nextQuestionProtocol?.onReceive(event: EmitEventConstant.getNextQuestionEvent(), data: res)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getResultQuestionEvent()) { (res: AnswerResponse) in
+            resultQuestionProtocol?.onReceive(event: EmitEventConstant.getResultQuestionEvent(), data: res)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getFreezeEvent()) { (res: BaseResponse) in
+            freezeProtocol?.onReceive(event: EmitEventConstant.getFreezeEvent(), data: res)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getResultInvitationEvent()) { (room: RoomActionResponse) in
+            resultInvitationProtocol?.onReceive(event: EmitEventConstant.getResultInvitationEvent(), data: room)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getSentInvitationEvent()) { (res: BaseResponse) in
+            sentInvitationProtocol?.onReceive(event: EmitEventConstant.getSentInvitationEvent(), data: res)
+        }
+        
+        socketBattle.onJson(event: EmitEventConstant.getReceiveInvitationEvent()) { (room: RoomActionResponse) in
+            receiveInvitationProtocol?.onReceive(event: EmitEventConstant.getReceiveInvitationEvent(), data: room)
+        }
+        
+        socketBattle.connect()
+    }
+    
+    class func emitBattleData(event: String, jsonData: String) {
+        socketBattle.emit(event, jsonData)
     }
 }
 

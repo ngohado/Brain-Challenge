@@ -190,7 +190,6 @@ class ProfileViewController: UIViewController {
         
         if let items = user.items, items.count > 0 {
             for item in items {
-                print("+\(item.quantity)")
                 if item.id == 1 {
                     item1Quantity.text = "+\(item.quantity!)"
                 } else if item.id == 2 {

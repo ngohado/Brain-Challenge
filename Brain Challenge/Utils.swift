@@ -31,6 +31,11 @@ class Utils {
         
         return (isReachable && !needsConnection)
     }
+    
+    class func random(max maxNumber: Int) -> Int {
+        return Int(arc4random_uniform(UInt32(maxNumber)))
+    }
+
 }
 
 

@@ -7,7 +7,7 @@
 //
 
 class ApiConstant {
-    static let BASE_URL = "http://192.168.1.66"
+    static let BASE_URL = "http://192.168.1.73"
     static let BASE_API = "\(BASE_URL):8080"
     
     class func getApiLogin() -> String {
@@ -153,5 +153,92 @@ class EmitEventConstant {
     class func getTypingEvent() -> String {
         return OnEventConstant.getTypingEvent()
     }
+    
+    //battle
+    
+    class func getRoomEvent() -> String {
+        return "rooms"
+    }
+    
+    class func getCreateRoomEvent() -> String {
+        return "create_room"
+    }
+    
+    class func getCancelRoomEvent() -> String {
+        return "cancel_room"
+    }
+    
+    class func getExitRoomEvent() -> String {
+        return "exit_room"
+    }
+    
+    class func getJoinRoomEvent() -> String {
+        return "join_room"
+    }
+    
+    class func getReadyEvent() -> String {
+        return "ready"
+    }
+    
+    class func getStartEvent() -> String {
+        return "start"
+    }
+    
+    class func getKickEvent() -> String {
+        return "kick"
+    }
+    
+    class func getQuestionEvent() -> String {
+        return "question"
+    }
+    
+    class func getFailJoinRoomEvent() -> String {
+        return "fail_join_room"
+    }
+    
+    class func getBattleReadyEvent() -> String {
+        return "battle_ready"
+    }
+    
+    class func getBattleStartEvent() -> String {
+        return "battle_start"
+    }
+    
+    class func getTimeoutOrAnsweredEvent() -> String {
+        return "timeout_or_answered"
+    }
+    
+    class func getNextQuestionEvent() -> String {
+        return "next_question"
+    }
+    
+    class func getRivalAnswerEvent() -> String {
+        return "rival_answer"
+    }
+    
+    class func getAnswerEvent() -> String {
+        return "answer"
+    }
+    
+    class func getResultQuestionEvent() -> String {
+        return "result_question"
+    }
+    
+    class func getFreezeEvent() -> String {
+        return "freeze"
+    }
+    
+    class func getSentInvitationEvent() -> String {
+        return "sent_invitation"
+    }
+    
+    class func getResultInvitationEvent() -> String {
+        return "result_invitation"
+    }
+    
+    class func getReceiveInvitationEvent() -> String {
+        return "receive_invitation"
+    }
+    
 }
 

@@ -50,6 +50,24 @@ class User: Mappable {
         self.gender = user.gender.value
         self.type = user.type.value
         self.firstLogin = user.firstLogin.value
+        
+        self.items = []
+        let tempItem: [Item] = Mapper<Item>().mapArray(JSONString: user.itemString ?? "[]")!
+        for i in 1...4 {
+            var t: Item?
+            for item in tempItem {
+                if i == item.id {
+                    t = item
+                    break
+                }
+            }
+            
+            if t == nil {
+                items?.append(Item.init(id: i))
+            } else {
+                items?.append(t!)
+            }
+        }
     }
     
     func mapping(map: Map) {
@@ -79,6 +97,7 @@ class UserRealm: Object {
     dynamic var phone: String?
     dynamic var avatar: String?
     dynamic var token: String?
+    dynamic var itemString: String?
     
     var dateOfBirth = RealmOptional<Double>()
     var score = RealmOptional<Int>()
@@ -94,6 +113,7 @@ class UserRealm: Object {
         self.phone = user.phone
         self.token = user.token
         self.avatar = user.avatar
+        self.itemString = Mapper().toJSONString(user.items ?? [])
         
         self.dateOfBirth = RealmOptional<Double>(user.dateOfBirth)
         self.score = RealmOptional<Int>(user.score)
@@ -118,7 +138,8 @@ class UserRealm: Object {
         do {
             let realm = try Realm()
             if let lastUser = realm.objects(UserRealm.self).last {
-                return User(user: lastUser)
+                let user = User(user: lastUser)
+                return user
             }
         } catch let error as NSError{
             print(error)
@@ -138,6 +159,7 @@ class UserInfo: User {
 }
 
 class TwitterUser: Mappable {
+    
     var name: String?
     var avatar: String?
     var email: String?

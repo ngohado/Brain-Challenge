@@ -18,7 +18,6 @@ class FriendsViewController: UIViewController {
     @IBOutlet weak var friendsTableView: UITableView!
     
     let id = (UserRealm.getUserInfo()?._id)!
-//    let id = "58984d5efefb94049767d36b"
     
     var friends: [User] = []
     var friendsRequest: [User] = []
@@ -54,7 +53,7 @@ class FriendsViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
 
 }
