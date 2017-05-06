@@ -16,7 +16,9 @@ class EventViewCell: UITableViewCell {
     
     @IBOutlet weak var lbExpiredDate: UILabel!
     
+    @IBOutlet weak var lbCode: UILabel!
     
+    @IBOutlet weak var viewCode: UIVisualEffectView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,10 +26,16 @@ class EventViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        viewCode.layer.cornerRadius = 5
+        viewCode.clipsToBounds = true
         // Configure the view for the selected state
     }
     
-    
+    func bindData(event: Event) {
+        ivBanner.kf.setImage(with: URL(string: event.bannerUrl!))
+        lbTitle.text = event.title
+        lbExpiredDate.text = event.content
+        lbCode.text = event.code
+    }
 
 }

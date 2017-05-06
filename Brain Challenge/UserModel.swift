@@ -146,6 +146,21 @@ class UserRealm: Object {
         }
         return nil
     }
+    
+    class func updateScore(items: [Item]) {
+        do {
+            let itemString = Mapper<Item>().toJSONString(items)
+            let realm = try Realm()
+            if let lastUser = realm.objects(UserRealm.self).last {
+                try realm.write {
+                    lastUser.itemString = itemString
+                    SocketUtil.emitBattleData(event: "use_item", jsonData: ItemUpdate(email: lastUser.email!, items: items).toJSONString()!)
+                }
+            }
+        } catch let error as NSError{
+            print(error)
+        }
+    }
 
 }
 

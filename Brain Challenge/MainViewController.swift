@@ -50,6 +50,7 @@ class MainViewController: UIViewController {
         
         currentTab = roomViewController
         fetchView()
+        self.title = "Room"
         
         SocketUtil.connectChat()
     }
@@ -88,6 +89,7 @@ class MainViewController: UIViewController {
         }
         currentTab = roomViewController
         fetchView()
+        self.title = "Room"
     }
     
     @IBAction func tab2Clicked(_ sender: Any) {
@@ -96,6 +98,7 @@ class MainViewController: UIViewController {
         }
         currentTab = searchViewController
         fetchView()
+        self.title = "Search"
     }
     
     @IBAction func tab3Clicked(_ sender: Any) {
@@ -105,6 +108,7 @@ class MainViewController: UIViewController {
         }
         currentTab = mainChatViewController
         fetchView()
+        self.title = "Chat"
     }
     
     @IBAction func tab4Clicked(_ sender: Any) {
@@ -119,6 +123,7 @@ class MainViewController: UIViewController {
         
         ivDotTab4.isHidden = true
         currentTab = chatViewController
+        
         fetchView()
     }
     
@@ -200,6 +205,13 @@ extension MainViewController: DrawerProtocol {
             })
         } else {
             currentTab = viewControllerMenuRight[index]
+            if index == 0 {
+                self.title = "Event"
+            } else if index == 2 {
+                self.title = "Friend"
+            } else if index == 3 {
+                self.title = "Rank"
+            }
         }
         
         fetchView()

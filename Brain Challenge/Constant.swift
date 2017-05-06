@@ -7,7 +7,7 @@
 //
 
 class ApiConstant {
-    static let BASE_URL = "http://192.168.1.73"
+    static let BASE_URL = "http://192.168.1.75"
     static let BASE_API = "\(BASE_URL):8080"
     
     class func getApiLogin() -> String {

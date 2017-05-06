@@ -50,6 +50,14 @@ class BattleViewController: UIViewController {
     
     @IBOutlet weak var containerD: UIView!
     
+    @IBOutlet weak var lbItem1: UILabel!
+    
+    @IBOutlet weak var lbItem2: UILabel!
+    
+    @IBOutlet weak var lbItem3: UILabel!
+    
+    @IBOutlet weak var lbItem4: UILabel!
+    
     let WIN = 1
     let LOSE = 2
     let DRAW_CORRECT = 3
@@ -132,6 +140,8 @@ class BattleViewController: UIViewController {
         containerD.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(answerDClicked(tapGestureRecognizer:))))
     }
     
+    
+    
     func initView() {
         borderCircleView(view: ivMeAvatar)
         borderCircleView(view: ivMeIndicator)
@@ -144,12 +154,36 @@ class BattleViewController: UIViewController {
         borderView(view: containterC, radius: 5, borderWidth: 1, borderColor: UIColor.lightGray.cgColor, clipsToBounds: true)
         borderView(view: containerD, radius: 5, borderWidth: 1, borderColor: UIColor.lightGray.cgColor, clipsToBounds: true)
         
-        borderView(view: viewContainerItem, radius: viewContainerItem.frame.height / 2, borderWidth: 1, borderColor: UIColor.darkGray.cgColor, clipsToBounds: true)
+        let lbH = lbItem1.frame.height / 2;
+        borderView(view: lbItem1, radius: lbH, borderWidth: 0, borderColor: UIColor.white.cgColor, clipsToBounds: true)
+        borderView(view: lbItem2, radius: lbH, borderWidth: 0, borderColor: UIColor.white.cgColor, clipsToBounds: true)
+        borderView(view: lbItem3, radius: lbH, borderWidth: 0, borderColor: UIColor.white.cgColor, clipsToBounds: true)
+        borderView(view: lbItem4, radius: lbH, borderWidth: 0, borderColor: UIColor.white.cgColor, clipsToBounds: true)
+        
+        borderView(view: viewContainerItem, radius: viewContainerItem.frame.height / 2, borderWidth: 1, borderColor: UIColor.darkGray.cgColor, clipsToBounds: false)
         
         
         freezeImage = UIImageView(frame: CGRect(x: window.frame.origin.x, y: window.frame.origin.y, width: window.frame.width, height: window.frame.height))
         freezeImage?.image = #imageLiteral(resourceName: "freeze-wallpapers")
         freezeImage?.contentMode = UIViewContentMode.scaleAspectFit
+        reloadItemLabel()
+        
+    }
+    
+    func reloadItemLabel() {
+        if let items = me?.items, items.count > 0 {
+            for item in items {
+                if item.id == 1 {
+                    lbItem1.text = item.quantity! <= 9 ? "\(item.quantity!)" : "9+"
+                } else if item.id == 2 {
+                    lbItem2.text = item.quantity! <= 9 ? "\(item.quantity!)" : "9+"
+                } else if item.id == 3 {
+                    lbItem3.text = item.quantity! <= 9 ? "\(item.quantity!)" : "9+"
+                } else {
+                    lbItem4.text = item.quantity! <= 9 ? "\(item.quantity!)" : "9+"
+                }
+            }
+        }
     }
     
     func initData() {
@@ -259,6 +293,7 @@ class BattleViewController: UIViewController {
             let case2 = Utils.random(max: numbers.count)
             setButtonColorAnswer(number: numbers[case2], correct: false)
             numbers.remove(at: case2)
+            
         }
     }
     
@@ -285,7 +320,14 @@ class BattleViewController: UIViewController {
     }
     
     func isItemAvailable(idItem: Int) -> Bool {
-        return (me?.items![idItem - 1].quantity)! > 0
+        if (me?.items![idItem - 1].quantity)! > 0 {
+            me?.items![idItem - 1].quantity = (me?.items![idItem - 1].quantity)! - 1
+            UserRealm.updateScore(items: (me?.items)!)
+            reloadItemLabel()
+            return true
+        }
+        
+        return false
     }
     
     func answerAClicked(tapGestureRecognizer: UITapGestureRecognizer) {

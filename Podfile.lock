@@ -44,7 +44,7 @@ PODS:
   - RxCocoa (3.2.0):
     - RxSwift (~> 3.1)
   - RxSwift (3.2.0)
-  - Socket.IO-Client-Swift (8.2.0)
+  - Socket.IO-Client-Swift (8.3.3)
   - SVPullToRefresh (0.4.1)
   - SwiftGifOrigin (1.6.1)
   - TwitterCore (2.8.0):
@@ -65,7 +65,7 @@ DEPENDENCIES:
   - RealmSwift
   - RxCocoa (~> 3.0)
   - RxSwift (~> 3.0)
-  - Socket.IO-Client-Swift (~> 8.2.0)
+  - Socket.IO-Client-Swift (~> 8.3.3)
   - SVPullToRefresh (from `https://github.com/gabro/SVPullToRefresh.git`, branch `top-infinitescrolling`)
   - SwiftGifOrigin (~> 1.6.1)
   - TwitterKit
@@ -101,12 +101,12 @@ SPEC CHECKSUMS:
   RealmSwift: 9556c0fe0f0cfecacfb755ae9e68ff379fc6bead
   RxCocoa: ccdf43101a70407097a29082f648ba1676075b30
   RxSwift: 46574f70d416b7923c237195939cc488a7fbf3a0
-  Socket.IO-Client-Swift: 900cf511777045c80d1ce1f11f71261e87765dd1
+  Socket.IO-Client-Swift: a2faffdbde89c63aebc5d631041530c1068b02b8
   SVPullToRefresh: ba2e718695a43253d8bea6852d2960097dc15d8c
   SwiftGifOrigin: d6679d3ebe9df2e049a84bc52582635107b581f6
   TwitterCore: e959987be23c767004d29eb7fab8d85d8585a2e5
   TwitterKit: f7b0a1adcb800f6446ff0ef70164797376522ff3
 
-PODFILE CHECKSUM: b5da0a45e5e6d515c1cd38aa45a99555a8757c2f
+PODFILE CHECKSUM: ac3b325a561e0514318aa7a1205ede606d179015
 
 COCOAPODS: 1.1.1

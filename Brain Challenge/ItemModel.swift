@@ -34,3 +34,24 @@ class Item: Mappable {
     }
     
 }
+
+class ItemUpdate: Mappable {
+    
+    var email: String?
+    var items: [Item]?
+    
+    required init?(map: Map) {
+        
+    }
+    
+    init(email: String, items: [Item]) {
+        self.email = email
+        self.items = items
+    }
+    
+    func mapping(map: Map) {
+        email <- map["email_user"]
+        items <- map["items"]
+    }
+    
+}

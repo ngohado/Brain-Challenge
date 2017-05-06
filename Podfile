@@ -16,7 +16,7 @@ target 'Brain Challenge' do
   pod 'TwitterKit'
   pod 'Kingfisher', '~> 3.0'
   pod 'RealmSwift'
-  pod 'Socket.IO-Client-Swift', '~> 8.2.0'
+  pod 'Socket.IO-Client-Swift', '~> 8.3.3'
   pod 'RxSwift',    '~> 3.0'
   pod 'RxCocoa',    '~> 3.0'
   pod 'JSQMessagesViewController'

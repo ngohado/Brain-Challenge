@@ -27,7 +27,7 @@ class EventViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        eventTableView.contentInset.top = getTopInsect()
+        eventTableView.contentInset.top = getTopInsect()
         eventTableView.contentInset.bottom = 50
         
         alertCongrat.layer.cornerRadius = 5
@@ -140,8 +140,8 @@ extension EventViewController: UITableViewDataSource {
             }
             
         } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "event_cell", for: indexPath) as! EventViewCell
-            
+            cell = tableView.dequeueReusableCell(withIdentifier: "event_cell", for: indexPath)
+            (cell as! EventViewCell).bindData(event: events[indexPath.row - 1])
         }
         
         return cell!
