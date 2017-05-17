@@ -191,7 +191,7 @@ extension MainViewController: DrawerProtocol {
             profileVC.isPresent = true
             profileVC.idShow = (UserRealm.getUserInfo()?._id)!
             currentTab = profileVC
-            
+            self.title = "Profile"
         } else if index == 1 {
             AlertHelper.showDialogCreateRoom(viewController: self, cbCancelFriend: { (alert) in
                 

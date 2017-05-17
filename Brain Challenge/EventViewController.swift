@@ -68,7 +68,15 @@ class EventViewController: UIViewController {
                 if result.status == 1 {
                     let newItem = result.newItem!
                     self.lbMessageAlert.text = "You get \(newItem.quantity!) \(newItem.name!)"
-                    self.ivItemAlert.kf.setImage(with: URL(string: newItem.image!))
+                    if newItem.id == 1 {
+                        self.ivItemAlert.image = #imageLiteral(resourceName: "item1")
+                    } else if newItem.id == 2 {
+                        self.ivItemAlert.image = #imageLiteral(resourceName: "item2")
+                    } else if newItem.id == 3 {
+                        self.ivItemAlert.image = #imageLiteral(resourceName: "item3")
+                    } else {
+                        self.ivItemAlert.image = #imageLiteral(resourceName: "item4")
+                    }
                     self.alertCongrat.isHidden = false
                 } else {
                     self.handleError(errorCode: result.errorCode!)

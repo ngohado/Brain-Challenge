@@ -29,9 +29,13 @@ extension SocketIOClient {
 class SocketUtil {
     private static var isConnect: Bool = false
     
-    static let socketChat = SocketIOClient(socketURL: URL(string: "\(ApiConstant.BASE_URL):3000")!, config: [.log(true), .forcePolling(true), .nsp("/chat")])
+    //socket chat
+    static let socketChat = SocketIOClient(socketURL: URL(string: "\(ApiConstant.BASE_URL):3000")!,
+                                           config: [.log(false), .forcePolling(true), .nsp("/chat")])
     
-    static let socketBattle = SocketIOClient(socketURL: URL(string: "\(ApiConstant.BASE_URL):3000")!, config: [.log(true), .forcePolling(true), .nsp("/battle")])
+    //socket battle
+    static let socketBattle = SocketIOClient(socketURL: URL(string: "\(ApiConstant.BASE_URL):3000")!,
+                                             config: [.log(false), .forcePolling(true), .nsp("/battle")])
     
     static var msgHistoryProtocol: [SocketHandleData] = []
     static var messageProtocol: [SocketHandleData] = []

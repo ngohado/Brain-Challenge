@@ -57,20 +57,28 @@ class LoginViewController: UIViewController {
     
     @IBAction func loginOnClicked(_ sender: Any) {
         if validateLogin() {
+            //check internet connection
             if !Utils.isConnectedToNetwork() {
-                AlertHelper.showAlert(viewController: self, title: "No Internet Connection", message: "Make sure your device is connected to the internet", titleButton: "OK", callback: { (alert) in
+                AlertHelper.showAlert(viewController: self, title: "No Internet Connection",
+                                message: "Make sure your device is connected to the internet", titleButton: "OK", callback: { (alert) in
                     alert.dismiss(animated: true, completion: nil)
                 })
                 
                 return
             }
             
+            //visible progress loading and don't let allow user use any component while requesting api
             MBProgressHUD.showAdded(to: self.view, animated: true)
             changeStateComponent(enable: false)
+            
             let loginRequest = LoginRequest(username: edtUsername.text, password: edtPassword.text)
-            Alamofire.request(ApiConstant.getApiLogin(), method: .post, parameters: loginRequest.toJSON(), encoding: JSONEncoding.default).responseObject { (response: DataResponse<LoginResponse>) in
+            Alamofire.request(ApiConstant.getApiLogin(), method: .post, parameters: loginRequest.toJSON(),
+                              encoding: JSONEncoding.default).responseObject { (response: DataResponse<LoginResponse>) in
+                                
                 MBProgressHUD.hide(for: self.view, animated: true)
                 self.changeStateComponent(enable: true)
+                
+                //call method handle data received from server
                 self.handleLoginResponse(loginResponse: response.value)
             }
         }
