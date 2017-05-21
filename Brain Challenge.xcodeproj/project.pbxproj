@@ -50,6 +50,7 @@
 		0C929D001E6DAEAF005DED1F /* FindUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C929CFF1E6DAEAF005DED1F /* FindUserViewController.swift */; };
 		0C929D031E6DCC59005DED1F /* SearchRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C929D021E6DCC59005DED1F /* SearchRequest.swift */; };
 		0C929D051E6DCC9E005DED1F /* SearchResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C929D041E6DCC9E005DED1F /* SearchResponse.swift */; };
+		0C9A27D11ED1454C00F6F705 /* UpdateModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9A27D01ED1454C00F6F705 /* UpdateModel.swift */; };
 		0C9AFE4B1EA885E00008F508 /* InviteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9AFE4A1EA885E00008F508 /* InviteViewController.swift */; };
 		0C9AFE4D1EA887780008F508 /* InviteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C9AFE4C1EA887780008F508 /* InviteTableViewCell.swift */; };
 		0CABB53C1E42E06C0056FA78 /* BaseResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CABB53B1E42E06C0056FA78 /* BaseResponse.swift */; };
@@ -127,6 +128,7 @@
 		0C929CFF1E6DAEAF005DED1F /* FindUserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FindUserViewController.swift; sourceTree = "<group>"; };
 		0C929D021E6DCC59005DED1F /* SearchRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchRequest.swift; sourceTree = "<group>"; };
 		0C929D041E6DCC9E005DED1F /* SearchResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchResponse.swift; sourceTree = "<group>"; };
+		0C9A27D01ED1454C00F6F705 /* UpdateModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateModel.swift; sourceTree = "<group>"; };
 		0C9AFE4A1EA885E00008F508 /* InviteViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteViewController.swift; sourceTree = "<group>"; };
 		0C9AFE4C1EA887780008F508 /* InviteTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InviteTableViewCell.swift; sourceTree = "<group>"; };
 		0CABB53B1E42E06C0056FA78 /* BaseResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseResponse.swift; sourceTree = "<group>"; };
@@ -273,9 +275,18 @@
 			name = SearchModel;
 			sourceTree = "<group>";
 		};
+		0C9A27CF1ED1453500F6F705 /* UpdateModel */ = {
+			isa = PBXGroup;
+			children = (
+				0C9A27D01ED1454C00F6F705 /* UpdateModel.swift */,
+			);
+			name = UpdateModel;
+			sourceTree = "<group>";
+		};
 		0CABB53A1E42E03A0056FA78 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0C9A27CF1ED1453500F6F705 /* UpdateModel */,
 				0CC617021E968E1A00EB6AD9 /* RoomModel */,
 				0C4AC8ED1E6F9D8A000D8234 /* RankModel */,
 				0C929D011E6DC811005DED1F /* SearchModel */,
@@ -572,6 +583,7 @@
 				0C1859BE1E530FCE00E5A650 /* MainViewController.swift in Sources */,
 				0C9AFE4B1EA885E00008F508 /* InviteViewController.swift in Sources */,
 				0CED74BD1E44FDDA0050DD8C /* RegistRequest.swift in Sources */,
+				0C9A27D11ED1454C00F6F705 /* UpdateModel.swift in Sources */,
 				0CABB53C1E42E06C0056FA78 /* BaseResponse.swift in Sources */,
 				0C3C9FA81E5BF6D4009B8EBA /* BonusResponse.swift in Sources */,
 				0C8206CB1E691206000A35A3 /* FriendRequest.swift in Sources */,

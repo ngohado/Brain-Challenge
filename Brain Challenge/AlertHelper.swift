@@ -138,6 +138,11 @@ class AlertHelper {
             
             let roomName = alert.textFields?.first?.text
             
+            if (roomName?.isEmpty)! {
+                AlertHelper.showAlert(viewController: viewController, title: "Room name is invalid", message: "Room name is empty!", titleButton: "Ok")
+                return
+            }
+            
             let alertSetupPassword = UIAlertController(title: "Set password", message: "If you want to set password to room, please fill up text field below", preferredStyle: UIAlertControllerStyle.alert)
             
             alertSetupPassword.addTextField { (tfRoom) in
@@ -153,7 +158,14 @@ class AlertHelper {
             let btnSet = UIAlertAction(title: "Set", style: UIAlertActionStyle.default, handler: {
                 (temp) in
                 alertSetupPassword.dismiss(animated: true, completion: nil)
-                cbCreate(alert, roomName!, alertSetupPassword.textFields?.first?.text)
+                
+                let password = alertSetupPassword.textFields?.first?.text
+                
+                if (password?.isEmpty)! {
+                    AlertHelper.showAlert(viewController: viewController, title: "Password is invalid", message: "Password is empty!", titleButton: "Ok")
+                    return
+                }
+                cbCreate(alert, roomName!, password)
             })
             
             alertSetupPassword.addAction(btnDontSet)

@@ -7,7 +7,7 @@
 //
 
 class ApiConstant {
-    static let BASE_URL = "http://192.168.1.75"
+    static let BASE_URL = "http://192.168.0.102"
     static let BASE_API = "\(BASE_URL):8080"
     
     class func getApiLogin() -> String {
@@ -36,6 +36,22 @@ class ApiConstant {
     
     class func getApiUserInfo() -> String {
         return BASE_API + "/user"
+    }
+    
+    class func getApiUpdateName() -> String {
+        return BASE_API + "/updatename"
+    }
+    
+    class func getApiUpdateGender() -> String {
+        return BASE_API + "/updategender"
+    }
+    
+    class func getApiUpdatePhone() -> String {
+        return BASE_API + "/updatephone"
+    }
+    
+    class func getApiUpdateAvatar() -> String {
+        return BASE_API + "/updateavatar"
     }
     
     class func getApiAddFriend() -> String {

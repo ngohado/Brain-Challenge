@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import MBProgressHUD
 
-class ProfileViewController: UIViewController {
+class ProfileViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     class func navigate(viewConstroller: UIViewController, idShow: String) {
         let storyBoard = UIStoryboard(name: "Main", bundle: nil)
@@ -42,8 +42,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var item3Quantity: UILabel!
     @IBOutlet weak var item4Quantity: UILabel!
     
+    @IBOutlet weak var lbPhoneTitle: UILabel!
     var idShow: String = ""
     var isPresent: Bool?
+    let imagePicker = UIImagePickerController()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,6 +63,8 @@ class ProfileViewController: UIViewController {
             dismiss(animated: true, completion: nil)
             return
         }
+        
+        imagePicker.delegate = self
         
         setupView()
         
@@ -80,6 +84,157 @@ class ProfileViewController: UIViewController {
         btnStatusFriend.layer.borderColor = UIColor.init(hexString: "#B574F5").cgColor
         btnStatusFriend.clipsToBounds = true
         
+        let idMe = UserRealm.getUserInfo()?._id
+        let enableUpdate = idMe == idShow ? true : false
+        
+        lbName.isUserInteractionEnabled = enableUpdate
+        lbName.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editName(tapGestureRecognizer:))))
+        
+        lbPhone.isUserInteractionEnabled = enableUpdate
+        lbPhone.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editPhone(tapGestureRecognizer:))))
+        
+        lbPhoneTitle.isUserInteractionEnabled = enableUpdate
+        lbPhoneTitle.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editPhone(tapGestureRecognizer:))))
+        
+        lbGender.isUserInteractionEnabled = enableUpdate
+        lbGender.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editGender(tapGestureRecognizer:))))
+        
+        ivAvatar.isUserInteractionEnabled = enableUpdate
+        ivAvatar.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(editAvatar(tapGestureRecognizer:))))
+        
+    }
+    
+    func editName(tapGestureRecognizer: UITapGestureRecognizer) {
+        let alert = UIAlertController(title: "Change name", message: "Enter new name", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (tfRoom) in
+            tfRoom.placeholder = self.lbName.text
+        }
+        
+        let btnCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        
+        let btnSet = UIAlertAction(title: "Set", style: UIAlertActionStyle.default, handler: {
+            (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil)
+            let newName = alert.textFields?.first?.text
+            if (newName?.isEmpty)! {
+                AlertHelper.showAlert(viewController: self, title: "New name is invalid", message: "New name is empty", titleButton: "Ok")
+                return
+            }
+            //request api change name
+            
+            let updateNameModel: UpdateModel = UpdateModel()
+            updateNameModel.id = self.idShow
+            updateNameModel.newValue = newName
+            
+            Alamofire.request(ApiConstant.getApiUpdateName(), method: .post, parameters: updateNameModel.toJSON(), encoding: JSONEncoding.default).responseObject {
+                (response: DataResponse<UserInfoResponse>) in
+                if response.value?.status == 1 {
+                    self.lbName.text = newName
+                } else {
+                    AlertHelper.showAlert(viewController: self, title: "Update failed", message: "An error occurs during update name", titleButton: "Ok")
+                }
+            }
+            
+        })
+        
+        alert.addAction(btnCancel)
+        alert.addAction(btnSet)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func editPhone(tapGestureRecognizer: UITapGestureRecognizer) {
+        let alert = UIAlertController(title: "Change phone", message: "Enter new phone", preferredStyle: UIAlertControllerStyle.alert)
+        
+        alert.addTextField { (tfRoom) in
+            tfRoom.placeholder = self.lbPhone.text
+        }
+        
+        let btnCancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {
+            (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil)
+        })
+        
+        let btnSet = UIAlertAction(title: "Set", style: UIAlertActionStyle.default, handler: {
+            (UIAlertAction) in
+            alert.dismiss(animated: true, completion: nil)
+            let newPhone = alert.textFields?.first?.text
+            if (newPhone?.isEmpty)! {
+                AlertHelper.showAlert(viewController: self, title: "New phone is invalid", message: "New phone is empty", titleButton: "Ok")
+                return
+            }
+            //request api change phone
+            
+            let updatePhoneModel: UpdateModel = UpdateModel()
+            updatePhoneModel.id = self.idShow
+            updatePhoneModel.newValue = newPhone
+            
+            Alamofire.request(ApiConstant.getApiUpdatePhone(), method: .post, parameters: updatePhoneModel.toJSON(), encoding: JSONEncoding.default).responseObject {
+                (response: DataResponse<UserInfoResponse>) in
+                if response.value?.status == 1 {
+                    self.lbPhone.text = newPhone
+                } else {
+                    AlertHelper.showAlert(viewController: self, title: "Update failed", message: "An error occurs during update phone", titleButton: "Ok")
+                }
+            }
+            
+        })
+        
+        alert.addAction(btnCancel)
+        alert.addAction(btnSet)
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func editGender(tapGestureRecognizer: UITapGestureRecognizer) {
+        let alert = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        
+        alert.addAction(UIAlertAction(title: "Male", style: .default, handler: { (UIAlertAction) in
+            self.updateGender(gender: 1)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Female", style: .default, handler: { (UIAlertAction) in
+            self.updateGender(gender: 0)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    func updateGender(gender: Int) {
+        let updateGenderModel: UpdateGenderModel = UpdateGenderModel()
+        updateGenderModel.id = self.idShow
+        updateGenderModel.gender = gender
+        
+        Alamofire.request(ApiConstant.getApiUpdateGender(), method: .post, parameters: updateGenderModel.toJSON(), encoding: JSONEncoding.default).responseObject {
+            (response: DataResponse<UserInfoResponse>) in
+            if response.value?.status == 1 {
+                self.lbGender.text = gender == 1 ? "Male" : "Female"
+            } else {
+                AlertHelper.showAlert(viewController: self, title: "Update failed", message: "An error occurs during update gender", titleButton: "Ok")
+            }
+        }
+    }
+    
+    func editAvatar(tapGestureRecognizer: UITapGestureRecognizer) {
+        self.imagePicker.allowsEditing = false
+        self.imagePicker.sourceType = .photoLibrary
+        self.imagePicker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        self.present(self.imagePicker, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        ivAvatar.image = chosenImage
+        imagePicker.dismiss(animated:true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        imagePicker.dismiss(animated: true, completion: nil)
     }
     
     func loadInfo() {
